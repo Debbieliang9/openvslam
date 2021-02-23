@@ -1,5 +1,6 @@
 # openvslam_ros
-
+Following the instructions and using the docker image included in this repo, you should be able to run the tracking and mapping algorithm of OpenVSLAM on a `ros-base` system. 
+---
 ## On the first terminal (terminal A) ##
 ```
 git clone https://github.com/Debbieliang9/openvslam.git 
@@ -59,8 +60,13 @@ SocketPublisher.server_uri: "http://172.17.0.2:3000"
 ```
 to the `config.yaml` file.
 
-On your browser, visit `http://localhost:3001/`
-On terminal A, in the `~/openvslam/build` directory, run `./run_video_slam -v ./orb_vocab/orb_vocab.dbow2 -m ./aist_living_lab_1/video.mp4 -c ./aist_living_lab_1/config.yaml --frame-skip 3 --no-sleep --map-db map.msg`. You should be able to see the visualization on `http://localhost:3001/`. 
+## On  your browser ##
+visit `http://localhost:3001/`
+
+## On terminal A ##
+In the `~/openvslam/build` directory, run `./run_video_slam -v ./orb_vocab/orb_vocab.dbow2 -m ./aist_living_lab_1/video.mp4 -c ./aist_living_lab_1/config.yaml --frame-skip 3 --no-sleep --map-db map.msg`. 
+
+You should be able to see the visualization on `http://localhost:3001/`. 
 Click the [Terminate] button to close the viewer. You can find map.msg in the current directory of terminal A.
 (The instructions above are for MacOS, if you would like to have linux instructions, please see the openvslam Docker tutorial as your
 [Reference](https://openvslam.readthedocs.io/en/master/docker.html#instructions-for-socketviewer))
