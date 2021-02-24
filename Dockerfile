@@ -211,10 +211,11 @@ RUN set -x && \
   rm -rf * && \
   apt-get purge -y -qq autogen autoconf libtool && \
   apt-get autoremove -y -qq && \
+  # apt-get install libboost-all-dev && \ 
   rm -rf /var/lib/apt/lists/*
 
 # OpenVSLAM
-COPY ./openvslam /openvslam/
+COPY . /openvslam/
 WORKDIR /openvslam/
 RUN set -x && \
   mkdir -p build && \
@@ -229,7 +230,12 @@ RUN set -x && \
     .. && \
   make -j${NUM_THREADS} && \
   rm -rf CMakeCache.txt CMakeFiles Makefile cmake_install.cmake example src && \
-  chmod -R 777 ./*
+  chmod -R 777 ./* 
+
 
 WORKDIR /openvslam/build/
+
 #ENTRYPOINT ["/bin/bash"]
+
+
+
