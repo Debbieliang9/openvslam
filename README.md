@@ -6,7 +6,7 @@ Following the instructions and using the docker image included in this repo, you
 git clone https://github.com/Debbieliang9/openvslam.git 
 cd ~/openvslam
 docker build -t openvslam-ros .
-docker run --rm -it --name openvslam-ros -p 3001:3001 openvslam-ros
+docker run --network host --rm -it openvslam-ros
 ```
 Now you should be in the ~/openvslam/build file
 ```
@@ -38,6 +38,7 @@ unzip aist_living_lab_2.zip
 ```
 cd ~/openvslam/viewer
 docker build -t openvslam-server .
+docker run --rm -it --name openvslam-server -p 3001:3001 openvslam-server
 ```
 You should see 
 ```
@@ -58,7 +59,13 @@ Please go to `~/openvslam/build/aist_living_lab_1` on terminal A and append
 ```
 SocketPublisher.server_uri: "http://172.17.0.2:3000"
 ```
-to the `config.yaml` file.
+to the `config.yaml` file. Note that this number can change while your container is running. If your worked connection does not work anymore, run the `docker inspect` command again and change the ymal file. 
+You may need 
+```
+apt-get update
+apt-get Install vim 
+``` 
+to install vim.
 
 ## On  your browser ##
 visit `http://localhost:3001/`
@@ -70,3 +77,42 @@ You should be able to see the visualization on `http://localhost:3001/`.
 Click the [Terminate] button to close the viewer. You can find map.msg in the current directory of terminal A.
 (The instructions above are for MacOS, if you would like to have linux instructions, please see the openvslam Docker tutorial as your
 [Reference](https://openvslam.readthedocs.io/en/master/docker.html#instructions-for-socketviewer))
+
+
+---
+# With ROS
+[Reference](https://openvslam.readthedocs.io/en/master/ros_package.html) 
+## On terminal D ##
+Started by `docker run --network host --rm -it open_ros`. 
+```
+cd ../..
+roscore
+```
+## On terminal A ##
+Run 
+```
+apt-get install libboost-all-dev
+apt update -y
+apt install ros-${ROS_DISTRO}-image-transport
+cd /openvslam/ros
+git clone --branch ${ROS_DISTRO} --depth 1 https://github.com/ros-perception/vision_opencv.git
+cp -r vision_opencv/cv_bridge src/
+rm -rf vision_opencv
+catkin_make \
+-DBUILD_WITH_MARCH_NATIVE=ON \
+-DUSE_PANGOLIN_VIEWER=OFF \
+-DUSE_SOCKET_PUBLISHER=ON \
+-DUSE_STACK_TRACE_LOGGER=ON \
+-DBOW_FRAMEWORK=DBoW2
+source /openvslam/ros/devel/setup.bash
+```
+## On terminal E ##
+Repeat what terminal A just did.
+As a publisher, run `rosrun publisher video -m /openvslam/build/aist_living_lab_1/video.mp4`
+
+## On terminal A ##
+As a subscriber, run `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml` 
+
+
+
+
