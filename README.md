@@ -1,5 +1,5 @@
 # openvslam_ros
-Following the instructions and using the docker image included in this repo, you should be able to run the tracking and mapping algorithm of OpenVSLAM on a `ros-base` system. 
+Following the instructions and using the docker image included in this repo, you should be able to run the tracking and mapping algorithm of OpenVSLAM on a `ros-noetic-base` system. 
 ---
 ## On the first terminal (terminal A) ##
 ```
@@ -8,6 +8,7 @@ cd ~/openvslam
 docker build -t openvslam-ros .
 docker run --network host --rm -it openvslam-ros
 ```
+The Dockerfile used here is a combination of [ros-base](https://github.com/osrf/docker_images/blob/df19ab7d5993d3b78a908362cdcd1479a8e78b35/ros/noetic/ubuntu/focal/ros-base/Dockerfile) and [openvslam-socket](https://github.com/xdspacelab/openvslam/blob/master/Dockerfile.socket).
 Now you should be in the ~/openvslam/build file
 ```
 
