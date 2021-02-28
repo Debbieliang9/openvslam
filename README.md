@@ -46,7 +46,7 @@ You should see
 WebSocket: listening on *:3000
 HTTP server: listening on *:3001
 ```
-on terminal B
+You can also run it with `docker run --network host --rm -it --name openvslam-server openvslam-server` and you don't have to do the work in terminal C. However, this might affect your visualization and your ability to terminate the program and save the map.
 
 ## On the third terminal (terminal C) ##
 ```
@@ -111,13 +111,30 @@ catkin_make \
 -DBOW_FRAMEWORK=DBoW2
 source /openvslam/ros/devel/setup.bash
 ```
+
+------- 
+# Tracking and Mapping
+
 ## On terminal E ##
 Repeat what terminal A just did.
-As a publisher, run `rosrun publisher video -m /openvslam/build/aist_living_lab_1/video.mp4`
 
 ## On terminal A ##
-As a subscriber, run `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml` 
+For tracking and mapping, as a subscriber, run `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml --map-db map.msg` 
 
+## On terminal E ##
+As a publisher, run `rosrun publisher video -m /openvslam/build/aist_living_lab_1/video.mp4 `
+
+You should be able to see the visualization on `http://localhost:3001/`. 
+Click the [Terminate] button to close the viewer. You can find map.msg in the current directory of terminal A.
+
+------- 
+# Localization
+
+## On terminal A ##
+As a subscriber, run `rosrun openvslam run_localization -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml --map-db map.msg` 
+
+## On terminal E ##
+As a publisher, run `rosrun publisher video -m /openvslam/build/aist_living_lab_1/video.mp4 `
 
 
 
