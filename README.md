@@ -93,9 +93,13 @@ roscore
 Run 
 ```
 apt-get install libboost-all-dev
+```
+```
 apt update -y
 apt install ros-${ROS_DISTRO}-image-transport
+```
 cd /openvslam/ros
+```
 git clone --branch ${ROS_DISTRO} --depth 1 https://github.com/ros-perception/vision_opencv.git
 cp -r vision_opencv/cv_bridge src/
 rm -rf vision_opencv
