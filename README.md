@@ -8,23 +8,23 @@ The docker images that we are going to use are available [here](https://hub.dock
 
 ### On terminal A 
 ```
-sudo docker pull debbieliang/ros_open:open_ros_topic_installed
+sudo docker pull debbieliang/ros_open:open_ros_dataset
 sudo docker pull debbieliang/ros_open:open_ros_server
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_topic_installed
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
 cd ../ros
 source /openvslam/ros/devel/setup.bash
 ```
 
 ### On terminal B
 ```
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_topic_installed
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
 cd ../ros
 source /openvslam/ros/devel/setup.bash
 ```
 
 ### On terminal C
 ```
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_topic_installed
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
 cd ../..
 roscore
 ```
@@ -182,6 +182,19 @@ ORB Configuration:
 ```
 On terminal A. Wait for ~3 min for the algorithm to finish, use `Control + C` to terminate the process. 
 
+### Other datasets (aist_entrance_hall_1)
+### On terminal A
+ `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/fisheye_datasets/aist_entrance_hall_1/config.yaml --map-db map.msg`
+
+### On terminal B
+`rosrun publisher video -m /openvslam/build/fisheye_datasets/aist_entrance_hall_1/video.mp4`
+
+### Other datasets (nu_eng2_corridor_1)
+### On terminal A
+ `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/fisheye_datasets/nu_eng2_corridor_1/config.yaml --map-db map.msg`
+
+### On terminal B
+`rosrun publisher video -m /openvslam/build/fisheye_datasets/nu_eng2_corridor_1/video.mp4`
 
 
 ---
