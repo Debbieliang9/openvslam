@@ -8,23 +8,23 @@ The docker images that we are going to use are available [here](https://hub.dock
 
 ### On terminal A 
 ```
-sudo docker pull debbieliang/ros_open:open_ros_dataset
+sudo docker pull debbieliang/ros_open:open_ros_log
 sudo docker pull debbieliang/ros_open:open_ros_server
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_log
 cd ../ros
 source /openvslam/ros/devel/setup.bash
 ```
 
 ### On terminal B
 ```
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_log
 cd ../ros
 source /openvslam/ros/devel/setup.bash
 ```
 
 ### On terminal C
 ```
-sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_dataset
+sudo docker run --network host --rm -it debbieliang/ros_open:open_ros_log
 cd ../..
 roscore
 ```
@@ -111,6 +111,8 @@ ORB Configuration:
 [2021-02-28 18:50:11.507] [I] updated the map
 ```
 On terminal A. Wait for ~3 min for the algorithm to finish, use `Control + C` to terminate the process. A `map.msg` file should be saved in the `/openvslam/ros` directory. 
+
+After terminating the process, a file called `track_times.txt` that logs each time period of frame tracking. While the process is running, this information is also writen to a file called `track_times_all.txt`.
 
 ### (Localization)
 ### On terminal A

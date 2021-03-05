@@ -65,6 +65,12 @@ void mono_tracking(const std::shared_ptr<openvslam::config>& cfg, const std::str
 
         const auto track_time = std::chrono::duration_cast<std::chrono::duration<double>>(tp_2 - tp_1).count();
         track_times.push_back(track_time);
+        
+        std::ofstream ofs("track_times_b.txt", std::ios::out);
+        if (ofs.is_open()) {
+            ofs << track_time << std::endl;
+            ofs.close();
+        }
     });
 
     // run the viewer in another thread
@@ -111,7 +117,7 @@ void mono_tracking(const std::shared_ptr<openvslam::config>& cfg, const std::str
         SLAM.save_frame_trajectory("frame_trajectory.txt", "TUM");
         SLAM.save_keyframe_trajectory("keyframe_trajectory.txt", "TUM");
         // output the tracking times for evaluation
-        std::ofstream ofs("track_times.txt", std::ios::out);
+        std::ofstream ofs("track_times_beta.txt", std::ios::out);
         if (ofs.is_open()) {
             for (const auto track_time : track_times) {
                 ofs << track_time << std::endl;
