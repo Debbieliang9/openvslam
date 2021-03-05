@@ -41,7 +41,7 @@ HTTP server: listening on *:3001
 Now we've finished the setup.
 ### (Tracking and Mapping)
 ### On terminal A
-As a subscriber, run `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml --map-db map.msg`
+As a subscriber, run `rosrun openvslam run_slam -v /openvslam/build/orb_vocab/orb_vocab.dbow2 -c /openvslam/build/aist_living_lab_1/config.yaml --map-db map.msg` 
 
 ### On terminal B
 As a publisher, run `rosrun publisher video -m /openvslam/build/aist_living_lab_1/video.mp4`
@@ -112,7 +112,7 @@ ORB Configuration:
 ```
 On terminal A. Wait for ~3 min for the algorithm to finish, use `Control + C` to terminate the process. A `map.msg` file should be saved in the `/openvslam/ros` directory. 
 
-After terminating the process, a file called `track_times.txt` that logs each time period of frame tracking. While the process is running, this information is also writen to a file called `track_times_all.txt`.
+If you want to see the tracking times, add `--eval-log` flag when running the `rosrun openvslam run_slam` command in terminal A. After terminating the process, a file called `track_times.txt` that logs each time period of frame tracking. While the process is running, this information is also writen to a file called `track_times_all.txt`.
 
 ### (Localization)
 ### On terminal A
